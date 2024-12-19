@@ -29,3 +29,16 @@ git clone https://github.com/<username>/django-todo-app
 
 The code used in this project and in the linked tutorial are licensed under the [Apache License, Version 2.0](LICENSE).
 
+## to use github package (docekr image registry) instead dockerhub
+
+.github/workflow/docker.yaml
+
+- add
+```
+    permissions:
+      contents: read
+      packages: write
+```
+
+- and modify VERY IMPORTANT 
+https://github.com/docker/build-push-action/issues/687#issuecomment-1238980158
