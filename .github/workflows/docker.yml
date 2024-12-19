@@ -5,13 +5,12 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-  packages: write
-
 jobs:
   build-and-share:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout code
@@ -32,4 +31,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/jar3/django-todo-app
+          tags: ghcr.io/${{ github.repository }}:latest
