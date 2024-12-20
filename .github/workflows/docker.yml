@@ -6,18 +6,12 @@ on:
       - main
     paths:
       - 'Dockerfile'
-<<<<<<< HEAD
-      - 
-
-=======
       - 'manage.py'
       - 'requirements.txt'
       - 'django_project/**'
       - 'django_project/**'
       - 'todo_app/**'
       - 'venv/**'
-      
->>>>>>> 16318eb40d34670d6f046c3b4ff60740a77e29ff
 jobs:
   build-and-share:
     runs-on: ubuntu-latest
