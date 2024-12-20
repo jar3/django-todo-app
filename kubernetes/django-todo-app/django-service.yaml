@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: django-todo
+  labels:
+    app: django-todo
+spec:
+  type: NodePort
+  ports:
+    - port: 8000
+      targetPort: 8000
+      nodePort: 30000  # Puedes cambiar este puerto si lo necesitas (rango válido: 30000-32767)
+  selector:
+    app: django-todo
+

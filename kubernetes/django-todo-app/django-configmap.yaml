@@ -2,9 +2,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: django-config
+  labels:
+    app: django-todo
 data:
-  DJANGO_ENV: production
   DATABASE_NAME: django_todo
-  DATABASE_USER: myuser
   DATABASE_HOST: postgres-service
   DATABASE_PORT: "5432"

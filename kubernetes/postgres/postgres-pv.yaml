@@ -4,8 +4,8 @@ metadata:
   name: postgres-pv
 spec:
   capacity:
-    storage: 10Gi
+    storage: 10Gi # Ajusta según lo que necesites
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/data/postgres"
+    path: "/mnt/data/postgres" # Ajusta según tu sistema

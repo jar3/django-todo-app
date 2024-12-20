@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: postgres-init-script
-data:
-  init.sql: |
-    CREATE USER myuser WITH PASSWORD 'mypassword';
-    CREATE DATABASE django_todo OWNER myuser;

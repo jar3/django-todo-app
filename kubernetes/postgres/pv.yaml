@@ -1,11 +1,17 @@
+PostgreSQL PersistentVolume
+
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: postgres-pv
+  labels:
+    type: local
+    app: postgres
 spec:
+  storageClassName: standard
   capacity:
-    storage: 10Gi # Ajusta según lo que necesites
+    storage: 10Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/data/postgres" # Ajusta según tu sistema
+    path: "/mnt/data/postgres"

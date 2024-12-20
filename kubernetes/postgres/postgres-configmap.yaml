@@ -2,7 +2,13 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: postgres-config
+  labels:
+    app: postgres
 data:
   POSTGRES_DB: django_todo   # Reemplaza con el nombre de tu base de datos
   POSTGRES_USER: myuser     # Reemplaza con el nombre de usuario
   POSTGRES_PORT: "5432"
+  init.sql: |
+    CREATE USER myuser WITH PASSWORD mypassword;
+    CREATE DATABASE django_todo OWNER myuser;
+    

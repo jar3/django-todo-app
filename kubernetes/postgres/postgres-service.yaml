@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: postgres-service
   labels:
-    app: django
+    app: postgres
 spec:
   selector:
-    app: django
+    app: postgres
   ports:
     - protocol: TCP
       port: 5432
