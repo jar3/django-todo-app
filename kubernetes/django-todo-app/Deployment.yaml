@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      initContainers:
+      - name: init-postgres
+        image: postgres:15
+        command: ["psql"]
+        args:
+          - "-U"
+          - "postgres"
+          - "-f"
+          - "/docker-entrypoint-initdb.d/init.sql"
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: django-db-secret
+              key: DATABASE_PASSWORD
+        volumeMounts:
+        - name: init-script-volume
+          mountPath: /docker-entrypoint-initdb.d
+      containers:
+      - name: postgres
+        image: postgres:15
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: django-config
+              key: DATABASE_NAME
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              name: django-config
+              key: DATABASE_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: django-db-secret
+              key: DATABASE_PASSWORD
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgres-storage
+      - name: django
+        image: ghcr.io/jar3/django-todo-app:latest
+        env:
+        - name: DJANGO_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: django-config
+              key: DJANGO_ENV
+        - name: DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: django-config
+              key: DATABASE_NAME
+        - name: DATABASE_USER
+          valueFrom:
+            configMapKeyRef:
+              name: django-config
+              key: DATABASE_USER
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: django-db-secret
+              key: DATABASE_PASSWORD
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: django-config
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: django-config
+              key: DATABASE_PORT
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - mountPath: /app
+          name: django-app-code
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-pvc
+      - name: django-app-code
+        emptyDir: {}
+      - name: init-script-volume
+        configMap:
+          name: postgres-init-script
