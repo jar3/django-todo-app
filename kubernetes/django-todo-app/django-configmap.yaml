@@ -9,7 +9,7 @@ data:
   DATABASE_HOST: postgres-service
   DATABASE_PORT: "5432"
   DJANGO_ALLOWED_HOSTS: "*"
-  CSRF_TRUSTED_ORIGINS: "https://localhost:8000,http://localhost:8000,http://localhost:30000,https://localhost:30000,http://127.0.0.1:8000,https://127.0.0.1:8000,http://127.0.0.1:30000,https://127.0.0.1:30000,https://*.app.github.dev,http://*.app.github.dev"
-  CSRF_COOKIE_SECURE: "False"
-  CSRF_USE_SESSIONS: "True"
+  DJANGO_CSRF_TRUSTED_ORIGINS: "https://localhost:8000,http://localhost:8000,http://localhost:30000,https://localhost:30000,http://127.0.0.1:8000,https://127.0.0.1:8000,http://127.0.0.1:30000,https://127.0.0.1:30000,https://*.app.github.dev,http://*.app.github.dev"
+  DJANGO_CSRF_COOKIE_SECURE: "False"
+  DJANGO_CSRF_USE_SESSIONS: "True"
   DEBUG: "True"
