@@ -5,10 +5,9 @@ metadata:
   labels:
     app: postgres
 data:
-  POSTGRES_DB: django_todo   # Reemplaza con el nombre de tu base de datos
-  POSTGRES_USER: myuser     # Reemplaza con el nombre de usuario
   POSTGRES_PORT: "5432"
+  POSTGRES_DB: django_todo
   init.sql: |
-    CREATE USER myuser WITH PASSWORD mypassword;
-    CREATE DATABASE django_todo OWNER myuser;
+    CREATE USER ${POSTGRES_USER} WITH PASSWORD '${POSTGRES_PASSWORD}';
+    CREATE DATABASE ${POSTGRES_DB} OWNER ${POSTGRES_USER};
     
