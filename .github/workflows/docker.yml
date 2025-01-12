@@ -12,6 +12,7 @@ on:
       - 'django_project/**'
       - 'todo_app/**'
       - 'venv/**'
+  workflow_dispatch:
 jobs:
   build-and-share:
     runs-on: ubuntu-latest
